@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: rmi_postgres_p2
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=weather_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_p2:/var/lib/postgresql/data
+
+  loader:
+    build: .
+    container_name: rmi_loader_p2
+    depends_on:
+      - postgres
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/app
+    environment:
+      - DB_URL=postgresql://admin:password@postgres:5432/weather_db
+
+volumes:
+  postgres_data_p2:
