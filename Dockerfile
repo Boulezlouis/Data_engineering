@@ -10,4 +10,4 @@ RUN pip install --no-cache-dir pandas sqlalchemy psycopg2-binary requests
 
 COPY . .
 
-CMD ["python", "loader.py"]
+CMD ["python", "loader2.py"]
