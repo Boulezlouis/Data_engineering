@@ -33,6 +33,19 @@ services:
       - "8080:80"
     depends_on:
       - postgres
+  
+  airflow:
+    image: apache/airflow:2.7.1-python3.9
+    container_name: rmi_airflow
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=SequentialExecutor
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+    ports:
+      - "8085:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - .:/app
+    command: standalone
 
 volumes:
   postgres_data_p2:
